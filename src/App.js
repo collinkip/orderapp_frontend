@@ -7,7 +7,7 @@ import Delivery from './Delivery';
 
 function App() {
 
-  const {id,setId}=useState('');
+  const [id,setId]=useState('');
   console.log(id)
 
   const submit =async (e)=>{
@@ -34,7 +34,7 @@ function App() {
   return (
     <div className="py-5">
       <div className="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-      <div className="card">
+      {id === "" ?<div className="card">
         <div className="card-header">
           Create delivery
         </div>
@@ -48,7 +48,7 @@ function App() {
           </div>
           <button className='btn btn-primary'>Submit</button>
         </form>
-      </div> 
+      </div> :<Delivery></Delivery>}
       </div>
     </div>
   );
