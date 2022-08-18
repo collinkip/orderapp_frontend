@@ -10,7 +10,7 @@ const Delivery =(props)=>{
 
     useEffect(() => {
      (async ()=>{
-        const response =await fetch(`https://fastapi-projec.herokuapp.com//deliveries/${props.id}/status`);
+        const response =await fetch(`https://fastapi-projec.herokuapp.com/deliveries/${props.id}/status`);
         const data =await response.json();
         setState(data)
      })()
