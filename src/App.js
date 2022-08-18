@@ -7,13 +7,6 @@ import Delivery from './Delivery';
 
 function App() {
 
-  const [state, setstate] = useState({
-    "id": "01GAP8CG9N4KGA03EHMM3XAETX",
-    "budget": 50,
-    "notes": "checkout 3 pizas",
-    "status": "completed"
-});
-
   const [id,setId]=useState('');
   console.log(id)
 
@@ -59,7 +52,7 @@ function App() {
           <button className='btn btn-primary'>Submit</button>
         </form>
       </div> 
-      :<Delivery></Delivery>}
+      :<Delivery id={id}/>}
       </div>
     </div>
   );

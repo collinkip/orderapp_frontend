@@ -1,15 +1,21 @@
-import {React,useState} from "react";
+import {React,useState,useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 
 
-const Delivery =()=>{
-    const [state, setState] = useState({
-        "id": "01GAR8ZZEEXCQA6ZFSMFFCTFDQ",
-        "budget": 50,
-        "notes": "get 3 chicken wings",
-        "status": "ready"
-    });
-    
+const Delivery =(props)=>{
+    const [state, setState] = useState({});
+    const [refresh,setRefresh]=useState(false);
+
+
+
+    useEffect(() => {
+     (async ()=>{
+        const response =await fetch(`http://127.0.0.1:8000/deliveries/${props.id}/status`);
+        const data =await response.json();
+        setState(data)
+     })()
+
+    }, [refresh]);
 
 
     const submit= async(e,type)=>{
@@ -24,7 +30,8 @@ const Delivery =()=>{
             },
             body:JSON.stringify({
                 type,
-                data
+                data,
+                delivery_id:state.id
             })
 
         });
@@ -35,6 +42,7 @@ const Delivery =()=>{
             return;
             
         }
+        setRefresh(!refresh)
     }
 
 
@@ -43,7 +51,7 @@ const Delivery =()=>{
 
     return <div className="row w-100">
         <div className="col-12 mb-4">
-            <h4 className="fw-bold text-white">DeliveryId: {state.id}</h4>
+            <h4 className="fw-bold text-success text-center">DeliveryId: {state.id}</h4>
         </div>
         <div className="col-12 mn-5">
             <div className="progress">
@@ -78,7 +86,7 @@ const Delivery =()=>{
         <div className="col-3">
             <div className="card mt-4">
                 <div className="card-header">
-                    Start delivery
+                    Increase Budget
                 </div>
 
                 <form className='card-body'  onSubmit={e => submit(e,"INCREASE_BUDGET")}>
@@ -117,7 +125,7 @@ const Delivery =()=>{
                     Deliver products
                 </div>
 
-                <form className='card-body'  onSubmit={e => submit(e,"PICKUP_PRODUCTS")}>
+                <form className='card-body'  onSubmit={e => submit(e,"DELIVER_PRODUCTS")}>
                     <div className="input-group mb-3">
                         <input type="number" name='sell_price' className='form-control'
                          placeholder='Sell Price' />
@@ -130,8 +138,10 @@ const Delivery =()=>{
                 </form>
             </div>
         </div>
+        <code className="col-12 mt-4">
+            {JSON.stringify(state)}
 
- 
+        </code>
     </div>;
 };
 
