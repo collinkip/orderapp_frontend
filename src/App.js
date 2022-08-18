@@ -14,7 +14,7 @@ function App() {
     e.preventDefault();
     const form =new FormData(e.target);
     const data = Object.fromEntries(form.entries());
-    const response=await fetch('http://127.0.0.1:8000/deliveries/create',{
+    const response=await fetch('https://fastapi-projec.herokuapp.com/deliveries/create',{
       method:'POST',
       headers:{'Content-Type':'application/json',  "access-control-allow-origin" : "*",
       "Content-type": "application/json; charset=UTF-8"    

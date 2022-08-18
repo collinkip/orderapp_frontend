@@ -10,7 +10,7 @@ const Delivery =(props)=>{
 
     useEffect(() => {
      (async ()=>{
-        const response =await fetch(`http://127.0.0.1:8000/deliveries/${props.id}/status`);
+        const response =await fetch(`https://fastapi-projec.herokuapp.com//deliveries/${props.id}/status`);
         const data =await response.json();
         setState(data)
      })()
@@ -22,7 +22,7 @@ const Delivery =(props)=>{
         e.preventDefault();
         const form =new FormData(e.target);
         const data = Object.fromEntries(form.entries());
-        const response=await fetch('http://127.0.0.1:8000/event',{
+        const response=await fetch('https://fastapi-projec.herokuapp.com//event',{
             method:'POST',
             headers:{'Content-Type':'application/json',  "access-control-allow-origin" : "*",
                 "Content-type": "application/json; charset=UTF-8"    
