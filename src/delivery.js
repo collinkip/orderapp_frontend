@@ -1,12 +1,9 @@
 import {React,useState,useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 
-
 const Delivery =(props)=>{
     const [state, setState] = useState({});
     const [refresh,setRefresh]=useState(false);
-
-
 
     useEffect(() => {
      (async ()=>{
@@ -14,9 +11,7 @@ const Delivery =(props)=>{
         const data =await response.json();
         setState(data)
      })()
-
     }, [refresh]);
-
 
     const submit= async(e,type)=>{
         e.preventDefault();
@@ -26,28 +21,20 @@ const Delivery =(props)=>{
             method:'POST',
             headers:{'Content-Type':'application/json',  "access-control-allow-origin" : "*",
                 "Content-type": "application/json; charset=UTF-8"    
-    
             },
             body:JSON.stringify({
                 type,
                 data,
                 delivery_id:state.id
             })
-
         });
-
         if (!response.ok) {
             const {detail}=await response.json();
             alert(detail);
-            return;
-            
+            return;  
         }
         setRefresh(!refresh)
     }
-
-
-
-
 
     return <div className="row w-100">
         <div className="col-12 mb-4">
@@ -55,8 +42,6 @@ const Delivery =(props)=>{
         </div>
         <div className="col-12 mn-5">
             <div className="progress">
-           
-
             {state.status !== 'ready' ?
                <div className= {state.status==='active' ?  "progress-bar bg-success progress-bar-striped progress-bar-animated":"progress-bar bg-success"} 
                role="progressbar" style={{width:'50%'}}>
@@ -64,12 +49,10 @@ const Delivery =(props)=>{
            {state.status ==='collected' || state.status ==='completed' ?
                <div className= {state.status==='collected' ?  "progress-bar bg-success progress-bar-striped progress-bar-animated":"progress-bar bg-success"}
                role="progressbar" style={{width:'50%'}}>
-           </div>:''}
-           
-       </div>
+        </div>:''}
+    </div>
             
-        </div>
-
+    </div>
 
         <div className="col-3">
             <div className="card mt-4">
